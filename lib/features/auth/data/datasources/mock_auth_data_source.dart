@@ -47,8 +47,8 @@ class MockAuthDataSource implements AuthDataSource {
 
   @override
   Future<bool> isEmailRegistered(String email) async {
-    // Simulamos que el email test@example.com ya está registrado
-    return email == 'test@example.com';
+    // Simulamos que el email registered@example.com ya está registrado
+    return email == 'registered@example.com';
   }
 
   @override
