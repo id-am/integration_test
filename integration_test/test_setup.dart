@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:integration_test_lab/core/consts/app_widget_keys.dart';
 import 'package:integration_test_lab/core/current_environment.dart';
 import 'package:integration_test_lab/core/enums/environment_enum.dart';
 import 'package:integration_test_lab/main.dart' as app;
@@ -26,23 +25,6 @@ class IntegrationTestSetup {
   /// Método helper para iniciar la aplicación en el estado inicial
   static Future<void> pumpApp(WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(child: app.MyApp()));
-    await tester.pumpAndSettle();
-  }
-
-  /// Método helper para realizar el login en las pruebas
-  static Future<void> performLogin(
-    WidgetTester tester, {
-    String email = 'test@example.com',
-    String password = 'password123',
-  }) async {
-    await tester.enterText(find.byKey(AppWidgetKeys.loginEmailField), email);
-    await tester.enterText(
-      find.byKey(AppWidgetKeys.loginPasswordField),
-      password,
-    );
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.byKey(AppWidgetKeys.loginButton));
     await tester.pumpAndSettle();
   }
 }

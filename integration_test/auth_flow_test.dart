@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test_lab/core/consts/app_widget_keys.dart';
-
+import 'robots/login_robot.dart';
 import 'test_setup.dart';
 
 void main() {
@@ -15,11 +15,11 @@ void main() {
       // Iniciar la aplicación
       await IntegrationTestSetup.pumpApp(tester);
 
-      // Verificar que estamos en la pantalla de login
-      expect(find.byKey(AppWidgetKeys.loginScreen), findsOneWidget);
+      // Crear instancia del robot de login
+      final loginRobot = LoginRobot(tester);
 
       // Realizar login
-      await IntegrationTestSetup.performLogin(tester);
+      await loginRobot.performLogin();
 
       // Verificar que estamos en la pantalla Home
       expect(find.byKey(AppWidgetKeys.homeScreen), findsOneWidget);
@@ -29,8 +29,11 @@ void main() {
       // Iniciar la aplicación
       await IntegrationTestSetup.pumpApp(tester);
 
+      // Crear instancia del robot de login
+      final loginRobot = LoginRobot(tester);
+
       // Realizar login
-      await IntegrationTestSetup.performLogin(tester);
+      await loginRobot.performLogin();
 
       // Navegar a la pantalla de perfil
       await tester.tap(find.byKey(AppWidgetKeys.homeProfileButton));
@@ -45,8 +48,11 @@ void main() {
       // Iniciar la aplicación
       await IntegrationTestSetup.pumpApp(tester);
 
+      // Crear instancia del robot de login
+      final loginRobot = LoginRobot(tester);
+
       // Realizar login
-      await IntegrationTestSetup.performLogin(tester);
+      await loginRobot.performLogin();
 
       // Navegar a perfil
       await tester.tap(find.byKey(AppWidgetKeys.homeProfileButton));
@@ -64,6 +70,22 @@ void main() {
 
       // Verificar que volvimos a la pantalla de login
       expect(find.byKey(AppWidgetKeys.loginScreen), findsOneWidget);
+    });
+
+    testWidgets('Login falla muestra mensaje de error', (
+      WidgetTester tester,
+    ) async {
+      // Iniciar la aplicación
+      await IntegrationTestSetup.pumpApp(tester);
+
+      // Crear instancia del robot de login
+      final loginRobot = LoginRobot(tester);
+
+      // Realizar login
+      await loginRobot.performLogin(email: 'error@example.com');
+
+      // Verificar que se muestra el mensaje de error
+      expect(find.byKey(AppWidgetKeys.loginErrorSnackBar), findsOneWidget);
     });
   });
 }

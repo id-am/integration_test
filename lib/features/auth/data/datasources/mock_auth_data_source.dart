@@ -22,6 +22,10 @@ class MockAuthDataSource implements AuthDataSource {
     String email,
     String password,
   ) async {
+    // Simulamos un error de inicio de sesión
+    if (email == 'error@example.com') {
+      return Left(LoginException('Credenciales inválidas'));
+    }
     // Simulamos inicio de sesión exitoso
     _isAuthenticated = true;
     return Right(_mockUser);
@@ -32,6 +36,10 @@ class MockAuthDataSource implements AuthDataSource {
     String email,
     String password,
   ) async {
+    // Simulamos un error de registro
+    if (email == 'error@example.com') {
+      return Left(RegisterException('Error al registrar el usuario'));
+    }
     // Simulamos registro exitoso
     _isAuthenticated = true;
     return Right(_mockUser);
