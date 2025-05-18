@@ -1,4 +1,4 @@
-import 'package:integration_test/core/consts/supabase_tables.dart';
+import 'package:integration_test/core/supabase_tables.dart';
 import 'package:integration_test/core/utils/either.dart';
 import 'package:integration_test/features/auth/domain/datasources/auth_data_source.dart';
 import 'package:integration_test/core/domain/exceptions/domain_exceptions.dart';
