@@ -89,67 +89,67 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 padding: const EdgeInsets.all(16.0),
                 child: Form(
                   key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Editar perfil',
-                        style: theme.textTheme.headlineLarge,
-                      ),
-                      const SizedBox(height: 24),
-                      TextFormField(
-                        key: const Key('profile_name_field'),
-                        controller: _nameController,
-                        decoration: const InputDecoration(
-                          labelText: 'Nombre',
-                          border: OutlineInputBorder(),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 16,
+                      children: [
+                        Text(
+                          'Editar perfil',
+                          style: theme.textTheme.headlineLarge,
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor ingresa tu nombre';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      TextFormField(
-                        key: const Key('profile_email_field'),
-                        controller: _emailController,
-                        decoration: const InputDecoration(
-                          labelText: 'Email',
-                          border: OutlineInputBorder(),
+                        TextFormField(
+                          key: const Key('profile_name_field'),
+                          controller: _nameController,
+                          decoration: const InputDecoration(
+                            labelText: 'Nombre',
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor ingresa tu nombre';
+                            }
+                            return null;
+                          },
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor ingresa tu correo electrónico';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 24),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          key: const Key('profile_save_button'),
-                          onPressed:
-                              profileState.isLoading
-                                  ? null
-                                  : _handleSaveProfile,
-                          child:
-                              profileState.isLoading
-                                  ? const CircularProgressIndicator()
-                                  : const Text('Guardar cambios'),
+                        TextFormField(
+                          key: const Key('profile_email_field'),
+                          controller: _emailController,
+                          decoration: const InputDecoration(
+                            labelText: 'Email',
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor ingresa tu correo electrónico';
+                            }
+                            return null;
+                          },
                         ),
-                      ),
-                      if (profileState.error != null)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16.0),
-                          child: Text(
-                            profileState.error!,
-                            style: const TextStyle(color: Colors.red),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            key: const Key('profile_save_button'),
+                            onPressed:
+                                profileState.isLoading
+                                    ? null
+                                    : _handleSaveProfile,
+                            child:
+                                profileState.isLoading
+                                    ? const CircularProgressIndicator()
+                                    : const Text('Guardar cambios'),
                           ),
                         ),
-                    ],
+                        if (profileState.error != null)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 16.0),
+                            child: Text(
+                              profileState.error!,
+                              style: const TextStyle(color: Colors.red),
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
               ),
