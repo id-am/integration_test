@@ -53,18 +53,16 @@ class SupabaseAuthDataSource implements AuthDataSource {
   @override
   Future<bool> isEmailRegistered(String email) async {
     try {
-      return false; // No hay forma de verificar si el correo está registrado
-      final response = await _supabaseClient.auth.signInWithPassword(
-        email: email,
-        password: 'incorrect_password',
-      );
-
-      return response.user != null;
+      await _supabaseClient.auth.resetPasswordForEmail(email);
+      return true; // Si no lanza excepción, el correo existe
     } catch (e) {
-      if (e.toString().toLowerCase().contains('user not found')) {
+      // Si el error indica que el usuario no existe, retornamos false
+      if (e.toString().toLowerCase().contains('user not found') ||
+          e.toString().toLowerCase().contains('email not found')) {
         return false;
       }
-
+      // Para otros errores (como problemas de red), asumimos que el correo existe
+      // para evitar falsos negativos
       return true;
     }
   }
