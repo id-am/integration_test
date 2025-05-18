@@ -27,19 +27,7 @@ class MyApp extends ConsumerWidget {
 
     return MaterialApp(
       title: 'Supabase Auth Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.primaryColor),
-        useMaterial3: true,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: AppTheme.primaryButtonStyle,
-        ),
-        inputDecorationTheme: const InputDecorationTheme(
-          border: OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppTheme.primaryColor, width: 2),
-          ),
-        ),
-      ),
+      theme: AppTheme.theme,
       home: const LoginScreen(),
       routes: routes,
     );
