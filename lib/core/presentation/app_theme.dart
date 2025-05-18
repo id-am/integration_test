@@ -8,51 +8,41 @@ class AppTheme {
   static const successColor = Colors.green;
   static const backgroundColor = Colors.white;
 
-  // Text styles
-  static const TextStyle headingStyle = TextStyle(
-    fontSize: 24,
-    fontWeight: FontWeight.bold,
-    color: Colors.black87,
-  );
-
-  static const TextStyle subheadingStyle = TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.w500,
-    color: Colors.black87,
-  );
-
-  static const TextStyle bodyStyle = TextStyle(
-    fontSize: 16,
-    color: Colors.black87,
-  );
-
-  static const TextStyle errorStyle = TextStyle(
-    fontSize: 14,
-    color: errorColor,
-  );
-
-  // Button styles
-  static final ButtonStyle primaryButtonStyle = ElevatedButton.styleFrom(
-    foregroundColor: Colors.white,
-    backgroundColor: primaryColor,
-    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-    textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-  );
-
-  static final ButtonStyle secondaryButtonStyle = ElevatedButton.styleFrom(
-    foregroundColor: Colors.white,
-    backgroundColor: secondaryColor,
-    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-    textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-  );
-
-  // Input decoration
-  static InputDecoration inputDecoration(String label) {
-    return InputDecoration(
-      labelText: label,
-      border: const OutlineInputBorder(),
-      focusedBorder: const OutlineInputBorder(
-        borderSide: BorderSide(color: primaryColor, width: 2),
+  static ThemeData get theme {
+    return ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.primaryColor),
+      useMaterial3: true,
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.white,
+          backgroundColor: primaryColor,
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+      ),
+      inputDecorationTheme: const InputDecorationTheme(
+        border: OutlineInputBorder(),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppTheme.primaryColor, width: 2),
+        ),
+      ),
+      textTheme: const TextTheme(
+        headlineLarge: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Colors.black87,
+        ),
+        headlineMedium: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          color: Colors.black87,
+        ),
+        headlineSmall: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          color: Colors.black87,
+        ),
+        bodyLarge: TextStyle(fontSize: 16, color: Colors.black87),
       ),
     );
   }
