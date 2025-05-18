@@ -69,8 +69,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       _updateControllers(profileState.profile!);
     }
 
+    final theme = Theme.of(context);
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Profile')),
+      appBar: AppBar(title: const Text('Perfil')),
       body:
           profileState.isLoading
               ? const Center(child: CircularProgressIndicator())
@@ -81,23 +83,20 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Edit Profile',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Text(
+                        'Editar perfil',
+                        style: theme.textTheme.headlineLarge,
                       ),
                       const SizedBox(height: 24),
                       TextFormField(
                         controller: _nameController,
                         decoration: const InputDecoration(
-                          labelText: 'Name',
+                          labelText: 'Nombre',
                           border: OutlineInputBorder(),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your name';
+                            return 'Por favor ingresa tu nombre';
                           }
                           return null;
                         },
@@ -111,7 +110,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
+                            return 'Por favor ingresa tu correo electrónico';
                           }
                           return null;
                         },
@@ -127,7 +126,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           child:
                               profileState.isLoading
                                   ? const CircularProgressIndicator()
-                                  : const Text('Save Profile'),
+                                  : const Text('Guardar cambios'),
                         ),
                       ),
                       if (profileState.error != null)
