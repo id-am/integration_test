@@ -68,11 +68,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           context,
         ).showSnackBar(SnackBar(content: Text(current.error!)));
       } else if (!current.isLoading && current.redirectToHome) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Registro exitoso. Redirigiendo al inicio...'),
-          ),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Registro exitoso.')));
 
         final profile = ProfileModel(
           userId: current.user!.id,
@@ -82,10 +80,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
         ref.read(profileProvider.notifier).createProfile(profile);
 
-        // Esperamos un momento para mostrar el mensaje antes de redirigir
-        Future.delayed(const Duration(seconds: 2), () {
-          Navigator.of(context).pushReplacementNamed(AppRoutes.home);
-        });
+        Navigator.of(context).pushReplacementNamed(AppRoutes.home);
       }
     });
 
