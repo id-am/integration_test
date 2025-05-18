@@ -59,6 +59,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
@@ -81,7 +83,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           children: [
             Text(
               'Bienvenido, ${profileState.profile?.name ?? authState.user?.name ?? "Usuario"}!',
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: theme.textTheme.headlineLarge,
             ),
             const SizedBox(height: 8),
             Text(
@@ -98,12 +100,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               },
               icon: const Icon(Icons.person),
               label: const Text('Editar perfil'),
-            ),
-            const SizedBox(height: 24),
-            const Text(
-              'Esta aplicación usa Clean Architecture con Gateway/DataSource',
-              style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
-              textAlign: TextAlign.center,
             ),
           ],
         ),
