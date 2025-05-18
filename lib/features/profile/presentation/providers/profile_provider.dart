@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:integration_test/core/current_environment.dart';
 import 'package:integration_test/features/profile/data/datasources/supabase_profile_data_source.dart';
+import 'package:integration_test/features/profile/data/datasources/mock_profile_data_source.dart';
 import 'package:integration_test/features/profile/data/supabase_profile_repository.dart';
 import 'package:integration_test/features/profile/domain/datasources/profile_data_source.dart';
 import 'package:integration_test/features/profile/domain/models/profile_model.dart';
@@ -18,7 +20,9 @@ final supabaseClientProvider = Provider<SupabaseClient>((ref) {
 // Profile data source provider
 final profileDataSourceProvider = Provider<ProfileDataSource>((ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
-  return SupabaseProfileDataSource(supabaseClient);
+  return CurrentEnvironment.isMock
+      ? MockProfileDataSource()
+      : SupabaseProfileDataSource(supabaseClient);
 });
 
 // Profile repository provider
