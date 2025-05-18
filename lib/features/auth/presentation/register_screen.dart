@@ -91,21 +91,20 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
     final authState = ref.watch(authProvider);
 
+    final theme = Theme.of(context);
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Register')),
+      appBar: AppBar(title: const Text('Registrar')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           spacing: 16,
           children: [
-            const Text(
-              'Crear cuenta',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const Text(
+            Text('Crear cuenta', style: theme.textTheme.headlineLarge),
+            Text(
               'Regístrate para acceder a todas las funciones',
-              style: TextStyle(fontSize: 16),
+              style: theme.textTheme.bodyLarge,
             ),
             Icon(
               Icons.account_circle,
@@ -120,10 +119,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 children: [
                   TextFormField(
                     controller: _nameController,
-                    decoration: const InputDecoration(
-                      labelText: 'Nombre',
-                      border: OutlineInputBorder(),
-                    ),
+                    decoration: const InputDecoration(labelText: 'Nombre'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Por favor ingrese su nombre';
@@ -133,10 +129,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   ),
                   TextFormField(
                     controller: _emailController,
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
-                      border: OutlineInputBorder(),
-                    ),
+                    decoration: const InputDecoration(labelText: 'Email'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Por favor ingrese su correo electrónico';
@@ -146,10 +139,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   ),
                   TextFormField(
                     controller: _passwordController,
-                    decoration: const InputDecoration(
-                      labelText: 'Contraseña',
-                      border: OutlineInputBorder(),
-                    ),
+                    decoration: const InputDecoration(labelText: 'Contraseña'),
                     obscureText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
