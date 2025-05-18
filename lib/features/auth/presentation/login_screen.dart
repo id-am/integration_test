@@ -37,6 +37,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       if (current.user != null && !current.isLoading) {
         Navigator.of(context).pushReplacementNamed(AppRoutes.home);
       }
+
+      if (current.error != null && !current.isLoading) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            key: AppWidgetKeys.loginErrorSnackBar,
+            content: Text(current.error!),
+          ),
+        );
+      }
     });
 
     final authState = ref.watch(authProvider);
