@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.example.integration_test"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973" // Versión requerida por los plugins
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
