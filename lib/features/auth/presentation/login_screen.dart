@@ -105,6 +105,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   const SizedBox(height: 16),
                   TextButton(
+                    key: AppWidgetKeys.loginRegisterButton,
                     onPressed: () {
                       Navigator.of(context).pushNamed(AppRoutes.register);
                     },
