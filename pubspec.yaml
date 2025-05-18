@@ -1,4 +1,4 @@
-name: integration_test
+name: integration_test_lab
 description: "A new Flutter project."
 publish_to: "none"
 version: 1.0.0+1
@@ -15,8 +15,13 @@ dependencies:
 
 dev_dependencies:
   flutter_lints: ^5.0.0
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
+  flutter_driver:
+    sdk: flutter
+  test: ^1.24.9
 
 flutter:
   uses-material-design: true
