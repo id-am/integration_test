@@ -1,4 +1,3 @@
-import 'package:integration_test/core/supabase_tables.dart';
 import 'package:integration_test/core/utils/either.dart';
 import 'package:integration_test/features/auth/domain/datasources/auth_data_source.dart';
 import 'package:integration_test/core/domain/exceptions/domain_exceptions.dart';
@@ -89,77 +88,6 @@ class SupabaseAuthDataSource implements AuthDataSource {
       return Left(
         GetUserException('Failed to get current user: ${e.toString()}'),
       );
-    }
-  }
-
-  @override
-  Future<void> createUserProfile({
-    required String userId,
-    required String name,
-    required String email,
-  }) async {
-    try {
-      await _supabaseClient.from(SupabaseTables.profiles).insert({
-        'user_id': userId,
-        'name': name,
-        'email': email,
-        'created_at': DateTime.now().toIso8601String(),
-      });
-    } catch (e) {
-      throw Exception('Failed to create user profile: ${e.toString()}');
-    }
-  }
-
-  @override
-  Future<Either<DomainException, Map<String, dynamic>>> getUserProfile(
-    String userId,
-  ) async {
-    try {
-      final userData =
-          await _supabaseClient
-              .from(SupabaseTables.profiles)
-              .select()
-              .eq('user_id', userId)
-              .single();
-
-      return Right(userData);
-    } catch (e) {
-      return Left(
-        GetProfileException('Failed to get user profile: ${e.toString()}'),
-      );
-    }
-  }
-
-  @override
-  Future<void> updateUserProfile({
-    required String userId,
-    required Map<String, dynamic> data,
-  }) async {
-    try {
-      // Añadimos timestamp de actualización
-      final updatedData = {
-        ...data,
-        'updated_at': DateTime.now().toIso8601String(),
-      };
-
-      await _supabaseClient
-          .from(SupabaseTables.profiles)
-          .update(updatedData)
-          .eq('id', userId);
-    } catch (e) {
-      throw Exception('Failed to update user profile: ${e.toString()}');
-    }
-  }
-
-  @override
-  Future<void> deleteUserProfile(String userId) async {
-    try {
-      await _supabaseClient
-          .from(SupabaseTables.profiles)
-          .delete()
-          .eq('user_id', userId);
-    } catch (e) {
-      throw Exception('Failed to delete user profile: ${e.toString()}');
     }
   }
 }

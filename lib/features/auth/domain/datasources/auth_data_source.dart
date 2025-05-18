@@ -23,25 +23,4 @@ abstract class AuthDataSource {
 
   /// Obtiene el usuario actualmente autenticado
   Future<Either<DomainException, User>> getCurrentAuthUser();
-
-  /// Crea un perfil de usuario en la base de datos
-  Future<void> createUserProfile({
-    required String userId,
-    required String name,
-    required String email,
-  });
-
-  /// Obtiene el perfil del usuario por ID
-  Future<Either<DomainException, Map<String, dynamic>>> getUserProfile(
-    String userId,
-  );
-
-  /// Actualiza el perfil del usuario
-  Future<void> updateUserProfile({
-    required String userId,
-    required Map<String, dynamic> data,
-  });
-
-  /// Elimina el perfil del usuario
-  Future<void> deleteUserProfile(String userId);
 }
