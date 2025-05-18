@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:integration_test_lab/core/consts/app_widget_keys.dart';
 import 'package:integration_test_lab/core/router.dart';
 import 'package:integration_test_lab/features/auth/presentation/providers/auth_provider.dart';
 import 'package:integration_test_lab/features/profile/domain/models/profile_model.dart';
@@ -58,19 +59,24 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         );
 
         // Esperamos un momento para mostrar el mensaje antes de redirigir
-        Future.delayed(const Duration(seconds: 2), () {
-          Navigator.of(context).pushReplacementNamed(AppRoutes.login);
-        });
+
+        Navigator.of(context).pushReplacementNamed(AppRoutes.login);
       }
       // Mostrar error si el registro falla por otras razones
       else if (current.error != null && !current.isLoading) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(current.error!)));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            key: AppWidgetKeys.registerErrorSnackBar,
+            content: Text(current.error!),
+          ),
+        );
       } else if (!current.isLoading && current.redirectToHome) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Registro exitoso.')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            key: AppWidgetKeys.registerSuccessSnackBar,
+            content: Text('Registro exitoso.'),
+          ),
+        );
 
         final profile = ProfileModel(
           userId: current.user!.id,
@@ -89,6 +95,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
+      key: AppWidgetKeys.registerScreen,
       appBar: AppBar(title: const Text('Registrar')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -113,6 +120,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 spacing: 16,
                 children: [
                   TextFormField(
+                    key: AppWidgetKeys.registerNameField,
                     controller: _nameController,
                     decoration: const InputDecoration(labelText: 'Nombre'),
                     validator: (value) {
@@ -123,6 +131,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     },
                   ),
                   TextFormField(
+                    key: AppWidgetKeys.registerEmailField,
                     controller: _emailController,
                     decoration: const InputDecoration(labelText: 'Email'),
                     validator: (value) {
@@ -133,6 +142,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     },
                   ),
                   TextFormField(
+                    key: AppWidgetKeys.registerPasswordField,
                     controller: _passwordController,
                     decoration: const InputDecoration(labelText: 'Contraseña'),
                     obscureText: true,
@@ -147,6 +157,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     },
                   ),
                   SizedBox(
+                    key: AppWidgetKeys.registerButton,
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: authState.isLoading ? null : _handleRegister,
@@ -157,6 +168,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     ),
                   ),
                   TextButton(
+                    key: AppWidgetKeys.registerLoginButton,
                     onPressed: () {
                       Navigator.of(
                         context,
