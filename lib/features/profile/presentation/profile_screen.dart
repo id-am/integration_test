@@ -1,0 +1,147 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:integration_test/features/profile/domain/models/profile_model.dart';
+import 'package:integration_test/features/auth/presentation/providers/auth_provider.dart';
+import 'package:integration_test/features/profile/presentation/providers/profile_provider.dart';
+
+class ProfileScreen extends ConsumerStatefulWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
+  final _formKey = GlobalKey<FormState>();
+  late final TextEditingController _nameController;
+  late final TextEditingController _emailController;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController();
+    _emailController = TextEditingController();
+
+    // Initialize with current auth user
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final authState = ref.read(authProvider);
+      if (authState.user != null) {
+        ref.read(profileProvider.notifier).loadProfile(authState.user!.id);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  // Update text controllers when profile data is loaded
+  void _updateControllers(ProfileModel profile) {
+    _nameController.text = profile.name;
+    _emailController.text = profile.email;
+  }
+
+  void _handleSaveProfile() {
+    if (_formKey.currentState!.validate()) {
+      final profileState = ref.read(profileProvider);
+      final authState = ref.read(authProvider);
+
+      if (profileState.profile != null && authState.user != null) {
+        final updatedProfile = ProfileModel(
+          userId: authState.user!.id,
+          name: _nameController.text,
+          email: _emailController.text,
+        );
+        ref.read(profileProvider.notifier).updateProfile(updatedProfile);
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final profileState = ref.watch(profileProvider);
+
+    // Update controllers when profile data is loaded
+    if (profileState.profile != null && !profileState.isLoading) {
+      _updateControllers(profileState.profile!);
+    }
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Profile')),
+      body:
+          profileState.isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Edit Profile',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      TextFormField(
+                        controller: _nameController,
+                        decoration: const InputDecoration(
+                          labelText: 'Name',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your name';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _emailController,
+                        decoration: const InputDecoration(
+                          labelText: 'Email',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 24),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed:
+                              profileState.isLoading
+                                  ? null
+                                  : _handleSaveProfile,
+                          child:
+                              profileState.isLoading
+                                  ? const CircularProgressIndicator()
+                                  : const Text('Save Profile'),
+                        ),
+                      ),
+                      if (profileState.error != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16.0),
+                          child: Text(
+                            profileState.error!,
+                            style: const TextStyle(color: Colors.red),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+    );
+  }
+}
