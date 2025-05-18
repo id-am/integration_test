@@ -46,6 +46,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     final authState = ref.watch(authProvider);
 
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(title: const Text('Login')),
       body: Padding(
@@ -54,10 +56,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           spacing: 16,
           children: [
-            const Text(
-              'Iniciar sesión',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
+            Text('Iniciar sesión', style: theme.textTheme.headlineLarge),
             Icon(Icons.login, size: 100, color: Theme.of(context).primaryColor),
             Form(
               key: _formKey,
@@ -66,10 +65,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 children: [
                   TextFormField(
                     controller: _emailController,
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
-                      border: OutlineInputBorder(),
-                    ),
+                    decoration: const InputDecoration(labelText: 'Email'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Por favor ingrese su correo electrónico';
@@ -80,10 +76,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: _passwordController,
-                    decoration: const InputDecoration(
-                      labelText: 'Password',
-                      border: OutlineInputBorder(),
-                    ),
+                    decoration: const InputDecoration(labelText: 'Password'),
                     obscureText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
