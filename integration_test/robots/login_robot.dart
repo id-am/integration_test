@@ -39,4 +39,11 @@ class LoginRobot extends BaseRobot {
     await enterCredentials(email: email, password: password);
     await tapLoginButton();
   }
+
+  /// Navegar a la pantalla de registro desde login
+  Future<void> navigateToRegister() async {
+    await verifyLoginScreen();
+    await tester.tap(find.byKey(AppWidgetKeys.loginRegisterButton));
+    await tester.pumpAndSettle();
+  }
 }
