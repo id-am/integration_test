@@ -1,15 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:integration_test/core/current_environment.dart';
-import 'package:integration_test/features/profile/data/datasources/supabase_profile_data_source.dart';
-import 'package:integration_test/features/profile/data/datasources/mock_profile_data_source.dart';
-import 'package:integration_test/features/profile/data/supabase_profile_repository.dart';
-import 'package:integration_test/features/profile/domain/datasources/profile_data_source.dart';
-import 'package:integration_test/features/profile/domain/models/profile_model.dart';
-import 'package:integration_test/features/profile/domain/repositories/profile_repository.dart';
-import 'package:integration_test/features/profile/domain/usecases/create_profile_usecase.dart';
-import 'package:integration_test/features/profile/domain/usecases/delete_profile_usecase.dart';
-import 'package:integration_test/features/profile/domain/usecases/get_profile_usecase.dart';
-import 'package:integration_test/features/profile/domain/usecases/update_profile_usecase.dart';
+import 'package:integration_test_lab/core/current_environment.dart';
+import 'package:integration_test_lab/features/profile/data/datasources/supabase_profile_data_source.dart';
+import 'package:integration_test_lab/features/profile/data/datasources/mock_profile_data_source.dart';
+import 'package:integration_test_lab/features/profile/data/supabase_profile_repository.dart';
+import 'package:integration_test_lab/features/profile/domain/datasources/profile_data_source.dart';
+import 'package:integration_test_lab/features/profile/domain/models/profile_model.dart';
+import 'package:integration_test_lab/features/profile/domain/repositories/profile_repository.dart';
+import 'package:integration_test_lab/features/profile/domain/usecases/create_profile_usecase.dart';
+import 'package:integration_test_lab/features/profile/domain/usecases/delete_profile_usecase.dart';
+import 'package:integration_test_lab/features/profile/domain/usecases/get_profile_usecase.dart';
+import 'package:integration_test_lab/features/profile/domain/usecases/update_profile_usecase.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 // Supabase client provider

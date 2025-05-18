@@ -1,6 +1,6 @@
-import 'package:integration_test/core/utils/either.dart';
-import 'package:integration_test/core/domain/exceptions/domain_exceptions.dart';
-import 'package:integration_test/features/profile/domain/models/profile_model.dart';
+import 'package:integration_test_lab/core/utils/either.dart';
+import 'package:integration_test_lab/core/domain/exceptions/domain_exceptions.dart';
+import 'package:integration_test_lab/features/profile/domain/models/profile_model.dart';
 
 abstract class ProfileRepository {
   Future<Either<DomainException, ProfileModel>> getProfile(String userId);

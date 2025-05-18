@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:integration_test/features/auth/presentation/login_screen.dart';
-import 'package:integration_test/features/auth/presentation/register_screen.dart';
-import 'package:integration_test/features/home/presentation/home_screen.dart';
-import 'package:integration_test/features/profile/presentation/profile_screen.dart';
+import 'package:integration_test_lab/features/auth/presentation/login_screen.dart';
+import 'package:integration_test_lab/features/auth/presentation/register_screen.dart';
+import 'package:integration_test_lab/features/home/presentation/home_screen.dart';
+import 'package:integration_test_lab/features/profile/presentation/profile_screen.dart';
 
 // Route names
 class AppRoutes {

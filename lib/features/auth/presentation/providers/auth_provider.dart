@@ -1,13 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:integration_test/core/current_environment.dart';
-import 'package:integration_test/features/auth/domain/datasources/auth_data_source.dart';
-import 'package:integration_test/features/auth/data/datasources/supabase_auth_data_source.dart';
-import 'package:integration_test/features/auth/data/datasources/mock_auth_data_source.dart';
-import 'package:integration_test/features/auth/data/supabase_auth_repository.dart';
-import 'package:integration_test/features/auth/domain/repositories/auth_repository.dart';
-import 'package:integration_test/features/auth/domain/models/user_model.dart';
-import 'package:integration_test/features/auth/domain/usecases/usecases.dart';
-import 'package:integration_test/core/domain/exceptions/domain_exceptions.dart';
+import 'package:integration_test_lab/core/current_environment.dart';
+import 'package:integration_test_lab/features/auth/domain/datasources/auth_data_source.dart';
+import 'package:integration_test_lab/features/auth/data/datasources/supabase_auth_data_source.dart';
+import 'package:integration_test_lab/features/auth/data/datasources/mock_auth_data_source.dart';
+import 'package:integration_test_lab/features/auth/data/supabase_auth_repository.dart';
+import 'package:integration_test_lab/features/auth/domain/repositories/auth_repository.dart';
+import 'package:integration_test_lab/features/auth/domain/models/user_model.dart';
+import 'package:integration_test_lab/features/auth/domain/usecases/usecases.dart';
+import 'package:integration_test_lab/core/domain/exceptions/domain_exceptions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 // Supabase client provider

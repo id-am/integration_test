@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:integration_test/core/router.dart';
-import 'package:integration_test/features/auth/presentation/providers/auth_provider.dart';
-import 'package:integration_test/features/profile/presentation/providers/profile_provider.dart';
+import 'package:integration_test_lab/core/router.dart';
+import 'package:integration_test_lab/features/auth/presentation/providers/auth_provider.dart';
+import 'package:integration_test_lab/features/profile/presentation/providers/profile_provider.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -66,6 +66,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         title: const Text('Home'),
         actions: [
           IconButton(
+            key: const Key('home_logout_button'),
             icon: const Icon(Icons.logout),
             onPressed: () {
               ref.read(authProvider.notifier).logout();
@@ -95,6 +96,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
             const SizedBox(height: 16),
             ElevatedButton.icon(
+              key: const Key('home_profile_button'),
               onPressed: () {
                 Navigator.of(context).pushNamed(AppRoutes.profile);
               },

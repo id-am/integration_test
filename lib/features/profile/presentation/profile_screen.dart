@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:integration_test/features/profile/domain/models/profile_model.dart';
-import 'package:integration_test/features/auth/presentation/providers/auth_provider.dart';
-import 'package:integration_test/features/profile/presentation/providers/profile_provider.dart';
+import 'package:integration_test_lab/features/profile/domain/models/profile_model.dart';
+import 'package:integration_test_lab/features/auth/presentation/providers/auth_provider.dart';
+import 'package:integration_test_lab/features/profile/presentation/providers/profile_provider.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -72,7 +72,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Perfil')),
+      appBar: AppBar(
+        title: const Text('Perfil'),
+        leading: IconButton(
+          key: const Key('profile_back_button'),
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
       body:
           profileState.isLoading
               ? const Center(child: CircularProgressIndicator())
@@ -89,6 +96,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ),
                       const SizedBox(height: 24),
                       TextFormField(
+                        key: const Key('profile_name_field'),
                         controller: _nameController,
                         decoration: const InputDecoration(
                           labelText: 'Nombre',
@@ -103,6 +111,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ),
                       const SizedBox(height: 16),
                       TextFormField(
+                        key: const Key('profile_email_field'),
                         controller: _emailController,
                         decoration: const InputDecoration(
                           labelText: 'Email',
@@ -119,6 +128,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
+                          key: const Key('profile_save_button'),
                           onPressed:
                               profileState.isLoading
                                   ? null

@@ -1,6 +1,6 @@
-import 'package:integration_test/core/supabase_tables.dart';
-import 'package:integration_test/features/profile/domain/datasources/profile_data_source.dart';
-import 'package:integration_test/features/profile/domain/models/profile_model.dart';
+import 'package:integration_test_lab/core/supabase_tables.dart';
+import 'package:integration_test_lab/features/profile/domain/datasources/profile_data_source.dart';
+import 'package:integration_test_lab/features/profile/domain/models/profile_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseProfileDataSource implements ProfileDataSource {

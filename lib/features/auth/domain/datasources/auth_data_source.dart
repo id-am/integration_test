@@ -1,5 +1,5 @@
-import 'package:integration_test/core/utils/either.dart';
-import 'package:integration_test/core/domain/exceptions/domain_exceptions.dart';
+import 'package:integration_test_lab/core/utils/either.dart';
+import 'package:integration_test_lab/core/domain/exceptions/domain_exceptions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class AuthDataSource {

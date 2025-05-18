@@ -1,4 +1,4 @@
-import 'package:integration_test/features/profile/domain/models/profile_model.dart';
+import 'package:integration_test_lab/features/profile/domain/models/profile_model.dart';
 
 abstract class ProfileDataSource {
   /// Crea un perfil de usuario en la base de datos

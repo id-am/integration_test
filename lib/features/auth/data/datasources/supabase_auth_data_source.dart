@@ -1,6 +1,6 @@
-import 'package:integration_test/core/utils/either.dart';
-import 'package:integration_test/features/auth/domain/datasources/auth_data_source.dart';
-import 'package:integration_test/core/domain/exceptions/domain_exceptions.dart';
+import 'package:integration_test_lab/core/utils/either.dart';
+import 'package:integration_test_lab/features/auth/domain/datasources/auth_data_source.dart';
+import 'package:integration_test_lab/core/domain/exceptions/domain_exceptions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseAuthDataSource implements AuthDataSource {

@@ -1,4 +1,4 @@
-import 'package:integration_test/features/auth/domain/repositories/auth_repository.dart';
+import 'package:integration_test_lab/features/auth/domain/repositories/auth_repository.dart';
 
 class LogoutUseCase {
   final AuthRepository repository;

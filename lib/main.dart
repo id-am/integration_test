@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:integration_test/core/config.dart';
-import 'package:integration_test/core/presentation/app_theme.dart';
-import 'package:integration_test/core/router.dart';
-import 'package:integration_test/features/auth/presentation/login_screen.dart';
+import 'package:integration_test_lab/core/config.dart';
+import 'package:integration_test_lab/core/presentation/app_theme.dart';
+import 'package:integration_test_lab/core/router.dart';
+import 'package:integration_test_lab/features/auth/presentation/login_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {

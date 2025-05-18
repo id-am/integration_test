@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:integration_test/core/router.dart';
-import 'package:integration_test/features/auth/presentation/providers/auth_provider.dart';
+import 'package:integration_test_lab/core/router.dart';
+import 'package:integration_test_lab/features/auth/presentation/providers/auth_provider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -54,7 +54,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 16,
           children: [
             Text('Iniciar sesión', style: theme.textTheme.headlineLarge),
             Icon(Icons.login, size: 100, color: Theme.of(context).primaryColor),
@@ -64,6 +63,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextFormField(
+                    key: const Key('login_email_field'),
                     controller: _emailController,
                     decoration: const InputDecoration(labelText: 'Email'),
                     validator: (value) {
@@ -75,6 +75,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
+                    key: const Key('login_password_field'),
                     controller: _passwordController,
                     decoration: const InputDecoration(labelText: 'Password'),
                     obscureText: true,
@@ -89,6 +90,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
+                      key: const Key('login_button'),
                       onPressed: authState.isLoading ? null : _handleLogin,
                       child:
                           authState.isLoading

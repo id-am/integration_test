@@ -1,4 +1,4 @@
-import 'package:integration_test/core/enums/environment_enum.dart';
+import 'package:integration_test_lab/core/enums/environment_enum.dart';
 
 class CurrentEnvironment {
   static EnvironmentEnum environment = EnvironmentEnum.development;
