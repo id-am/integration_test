@@ -99,87 +99,93 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       appBar: AppBar(title: const Text('Registrar')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 16,
-          children: [
-            Text('Crear cuenta', style: theme.textTheme.headlineLarge),
-            Text(
-              'Regístrate para acceder a todas las funciones',
-              style: theme.textTheme.bodyLarge,
-            ),
-            Icon(
-              Icons.account_circle,
-              size: 100,
-              color: Theme.of(context).primaryColor,
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 16,
-                children: [
-                  TextFormField(
-                    key: AppWidgetKeys.registerNameField,
-                    controller: _nameController,
-                    decoration: const InputDecoration(labelText: 'Nombre'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese su nombre';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    key: AppWidgetKeys.registerEmailField,
-                    controller: _emailController,
-                    decoration: const InputDecoration(labelText: 'Email'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese su correo electrónico';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    key: AppWidgetKeys.registerPasswordField,
-                    controller: _passwordController,
-                    decoration: const InputDecoration(labelText: 'Contraseña'),
-                    obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese su contraseña';
-                      }
-                      if (value.length < 6) {
-                        return 'La contraseña debe tener al menos 6 caracteres';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(
-                    key: AppWidgetKeys.registerButton,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: authState.isLoading ? null : _handleRegister,
-                      child:
-                          authState.isLoading
-                              ? const CircularProgressIndicator()
-                              : const Text('Registrar'),
-                    ),
-                  ),
-                  TextButton(
-                    key: AppWidgetKeys.registerLoginButton,
-                    onPressed: () {
-                      Navigator.of(
-                        context,
-                      ).pushReplacementNamed(AppRoutes.login);
-                    },
-                    child: const Text('¿Ya tienes una cuenta? Iniciar sesión'),
-                  ),
-                ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 16,
+            children: [
+              Text('Crear cuenta', style: theme.textTheme.headlineLarge),
+              Text(
+                'Regístrate para acceder a todas las funciones',
+                style: theme.textTheme.bodyLarge,
               ),
-            ),
-          ],
+              Icon(
+                Icons.account_circle,
+                size: 100,
+                color: Theme.of(context).primaryColor,
+              ),
+              Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: 16,
+                  children: [
+                    TextFormField(
+                      key: AppWidgetKeys.registerNameField,
+                      controller: _nameController,
+                      decoration: const InputDecoration(labelText: 'Nombre'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor ingrese su nombre';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      key: AppWidgetKeys.registerEmailField,
+                      controller: _emailController,
+                      decoration: const InputDecoration(labelText: 'Email'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor ingrese su correo electrónico';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      key: AppWidgetKeys.registerPasswordField,
+                      controller: _passwordController,
+                      decoration: const InputDecoration(
+                        labelText: 'Contraseña',
+                      ),
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor ingrese su contraseña';
+                        }
+                        if (value.length < 6) {
+                          return 'La contraseña debe tener al menos 6 caracteres';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(
+                      key: AppWidgetKeys.registerButton,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: authState.isLoading ? null : _handleRegister,
+                        child:
+                            authState.isLoading
+                                ? const CircularProgressIndicator()
+                                : const Text('Registrar'),
+                      ),
+                    ),
+                    TextButton(
+                      key: AppWidgetKeys.registerLoginButton,
+                      onPressed: () {
+                        Navigator.of(
+                          context,
+                        ).pushReplacementNamed(AppRoutes.login);
+                      },
+                      child: const Text(
+                        '¿Ya tienes una cuenta? Iniciar sesión',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
