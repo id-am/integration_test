@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:integration_test_lab/core/consts/app_widget_keys.dart';
 import 'package:integration_test_lab/core/router.dart';
 import 'package:integration_test_lab/features/auth/presentation/providers/auth_provider.dart';
 import 'package:integration_test_lab/features/profile/presentation/providers/profile_provider.dart';
@@ -62,15 +63,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
+      key: AppWidgetKeys.homeScreen,
       appBar: AppBar(
         title: const Text('Home'),
         actions: [
           IconButton(
-            key: const Key('home_logout_button'),
+            key: AppWidgetKeys.homeLogoutButton,
             icon: const Icon(Icons.logout),
             onPressed: () {
               ref.read(authProvider.notifier).logout();
-              // Resetear el flag al cerrar sesión
               setState(() {
                 _hasRequestedProfile = false;
               });
@@ -81,22 +82,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 16,
           children: [
             Text(
               'Bienvenido, ${profileState.profile?.name ?? authState.user?.name ?? "Usuario"}!',
               style: theme.textTheme.headlineLarge,
             ),
-            const SizedBox(height: 8),
             Text(
               'Email: ${profileState.profile?.email ?? authState.user?.email ?? ""}',
             ),
-            const SizedBox(height: 24),
             const Text(
               'Esta es la pantalla de inicio después de iniciar sesión con éxito',
             ),
-            const SizedBox(height: 16),
             ElevatedButton.icon(
-              key: const Key('home_profile_button'),
+              key: AppWidgetKeys.homeProfileButton,
               onPressed: () {
                 Navigator.of(context).pushNamed(AppRoutes.profile);
               },

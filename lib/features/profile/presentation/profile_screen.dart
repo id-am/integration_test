@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:integration_test_lab/core/consts/app_widget_keys.dart';
 import 'package:integration_test_lab/features/profile/domain/models/profile_model.dart';
 import 'package:integration_test_lab/features/auth/presentation/providers/auth_provider.dart';
 import 'package:integration_test_lab/features/profile/presentation/providers/profile_provider.dart';
@@ -72,10 +73,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
+      key: AppWidgetKeys.profileScreen,
       appBar: AppBar(
         title: const Text('Perfil'),
         leading: IconButton(
-          key: const Key('profile_back_button'),
+          key: AppWidgetKeys.profileBackButton,
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),

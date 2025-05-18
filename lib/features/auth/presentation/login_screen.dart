@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:integration_test_lab/core/consts/app_widget_keys.dart';
 import 'package:integration_test_lab/core/router.dart';
 import 'package:integration_test_lab/features/auth/presentation/providers/auth_provider.dart';
 
@@ -36,12 +37,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       if (current.user != null && !current.isLoading) {
         Navigator.of(context).pushReplacementNamed(AppRoutes.home);
       }
-
-      if (current.error != null && !current.isLoading) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(current.error!)));
-      }
     });
 
     final authState = ref.watch(authProvider);
@@ -49,6 +44,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
+      key: AppWidgetKeys.loginScreen,
       appBar: AppBar(title: const Text('Login')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -63,7 +59,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextFormField(
-                    key: const Key('login_email_field'),
+                    key: AppWidgetKeys.loginEmailField,
                     controller: _emailController,
                     decoration: const InputDecoration(labelText: 'Email'),
                     validator: (value) {
@@ -75,7 +71,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
-                    key: const Key('login_password_field'),
+                    key: AppWidgetKeys.loginPasswordField,
                     controller: _passwordController,
                     decoration: const InputDecoration(labelText: 'Password'),
                     obscureText: true,
@@ -90,7 +86,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      key: const Key('login_button'),
+                      key: AppWidgetKeys.loginButton,
                       onPressed: authState.isLoading ? null : _handleLogin,
                       child:
                           authState.isLoading
