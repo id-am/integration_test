@@ -53,7 +53,6 @@ class SupabaseAuthDataSource implements AuthDataSource {
 
   @override
   Future<bool> isEmailRegistered(String email) async {
-    // TODO: Verificar si el correo ya está registrado
     try {
       final userData =
           await _supabaseClient
