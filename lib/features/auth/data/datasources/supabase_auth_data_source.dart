@@ -1,3 +1,4 @@
+import 'package:integration_test_lab/core/supabase_tables.dart';
 import 'package:integration_test_lab/core/utils/either.dart';
 import 'package:integration_test_lab/features/auth/domain/datasources/auth_data_source.dart';
 import 'package:integration_test_lab/core/domain/exceptions/domain_exceptions.dart';
@@ -52,18 +53,17 @@ class SupabaseAuthDataSource implements AuthDataSource {
 
   @override
   Future<bool> isEmailRegistered(String email) async {
+    // TODO: Verificar si el correo ya está registrado
     try {
-      await _supabaseClient.auth.resetPasswordForEmail(email);
-      return true; // Si no lanza excepción, el correo existe
+      final userData =
+          await _supabaseClient
+              .from(SupabaseTables.profiles)
+              .select()
+              .eq('email', email)
+              .single();
+      return userData.isEmpty ? false : true;
     } catch (e) {
-      // Si el error indica que el usuario no existe, retornamos false
-      if (e.toString().toLowerCase().contains('user not found') ||
-          e.toString().toLowerCase().contains('email not found')) {
-        return false;
-      }
-      // Para otros errores (como problemas de red), asumimos que el correo existe
-      // para evitar falsos negativos
-      return true;
+      return false;
     }
   }
 
