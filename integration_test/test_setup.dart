@@ -34,4 +34,10 @@ class IntegrationTestSetup {
 
     await tester.pumpAndSettle();
   }
+
+  /// Método helper para reiniciar el estado de la aplicación
+  static Future<void> resetAppState(WidgetTester tester) async {
+    // Por ejemplo reiniciar un provider o el local storage
+    await tester.pumpAndSettle();
+  }
 }
