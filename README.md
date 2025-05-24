@@ -366,6 +366,75 @@ git clone https://github.com/id-am/integration_test_lab.git
 cd integration_test_lab
 ```
 
+## Configuración del entorno
+
+La aplicación puede ejecutarse en diferentes entornos utilizando la clase CurrentEnvironment:
+
+```dart
+// Configurar el entorno en modo mock para pruebas
+CurrentEnvironment.setEnvironment(EnvironmentEnum.mock);
+
+// Usar entorno de desarrollo (predeterminado)
+CurrentEnvironment.setEnvironment(EnvironmentEnum.development);
+```
+
+## Configuración de Supabase
+También puedes crear tu propia cuenta en Supabase y actualizar las credenciales en `SupabaseConfig`:
+
+```dart
+class SupabaseConfig {
+  static const String supabaseUrl = 'TU_URL_DE_SUPABASE';
+  static const String supabaseAnonKey = 'TU_CLAVE_ANON_DE_SUPABASE';
+}
+```
+
+### Crea la tabla de perfiles en Supabase
+
+```sql
+-- Crear tabla de perfiles
+CREATE TABLE profiles (
+    user_id uuid not null,
+    name text not null,
+    email text not null unique,
+    created_at timestamp with time zone default current_timestamp,
+    updated_at timestamp with time zone default current_timestamp
+);
+
+-- Habilitar RLS
+ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
+
+-- Crear un índice en user_id para mejorar el rendimiento de las consultas
+CREATE INDEX idx_profiles_user_id ON profiles (user_id);
+```
+
+### Crea políticas de seguridad en Supabase
+
+```sql
+-- Política para permitir a los usuarios autenticados actualizar sus propios registros
+CREATE POLICY "Authenticated users can update their own records" 
+ON profiles 
+FOR UPDATE 
+TO authenticated 
+USING ((SELECT auth.uid() AS uid) = user_id) 
+WITH CHECK (true);
+
+-- Política para permitir la inserción para todos los usuarios basada en user_id
+CREATE POLICY "Enable insert for users based on user_id" 
+ON profiles 
+FOR INSERT 
+TO public 
+WITH CHECK (true);
+
+-- Política para permitir el acceso de lectura para todos los usuarios
+CREATE POLICY "Enable read access for all users" 
+ON profiles 
+FOR SELECT 
+TO public 
+USING (true);
+```
+
+
+
 ## Instalación y ejecución
 
 Es necesario contar con Flutter instalado y configurado en tu máquina. Puedes seguir la guía de instalación oficial de Flutter [aquí](https://flutter.dev/docs/get-started/install).
@@ -386,7 +455,6 @@ flutter test integration_test/auth_flow_test.dart
 # Ejecutar las pruebas de integración en un dispositivo específico (si hay múltiples conectados)
 flutter test integration_test/integration_test.dart -d <device_id>
 ```
-
 ## Problemas Comunes y Soluciones
 
 ### 1. Pruebas Inestables (Flaky Tests)
