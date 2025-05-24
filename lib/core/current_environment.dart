@@ -7,8 +7,6 @@ class CurrentEnvironment {
 
   static bool get isDevelopment => environment == EnvironmentEnum.development;
 
-  static bool get isProduction => environment == EnvironmentEnum.production;
-
   static void setEnvironment(EnvironmentEnum env) {
     environment = env;
   }
