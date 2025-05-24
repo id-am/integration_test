@@ -86,8 +86,7 @@ integration_test_lab/
 │   │   ├── base_robot.dart                 # Robot base
 │   │   ├── login_robot.dart                # Robot para pantalla de login
 │   │   └── register_robot.dart             # Robot para pantalla de registro
-│   ├── test_helpers/                       # Funciones auxiliares para pruebas
-│   └── examples/                           # Ejemplos de código para pruebas
+│   └── test_helpers/                       # Funciones auxiliares para pruebas
 │
 ├── pubspec.yaml                            # Dependencias y configuración del proyecto
 └── README.md                               # Documentación del proyecto
