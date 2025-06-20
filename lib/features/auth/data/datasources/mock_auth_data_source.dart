@@ -1,6 +1,6 @@
 import 'package:integration_test_lab/core/utils/either.dart';
 import 'package:integration_test_lab/core/domain/exceptions/domain_exceptions.dart';
-import 'package:integration_test_lab/features/auth/domain/datasources/auth_data_source.dart';
+import 'package:integration_test_lab/features/auth/data/datasources/auth_data_source.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Mock de AuthDataSource que simula respuestas correctas para pruebas

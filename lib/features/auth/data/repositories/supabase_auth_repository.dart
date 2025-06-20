@@ -1,8 +1,9 @@
 import 'package:integration_test_lab/core/utils/either.dart';
-import 'package:integration_test_lab/features/auth/domain/datasources/auth_data_source.dart';
 import 'package:integration_test_lab/core/domain/exceptions/domain_exceptions.dart';
+import 'package:integration_test_lab/features/auth/data/datasources/auth_data_source.dart';
+import 'package:integration_test_lab/features/auth/data/models/user_model.dart';
+import 'package:integration_test_lab/features/auth/domain/entities/user_entity.dart';
 import 'package:integration_test_lab/features/auth/domain/repositories/auth_repository.dart';
-import 'package:integration_test_lab/features/auth/domain/models/user_model.dart';
 
 class SupabaseAuthRepository implements AuthRepository {
   final AuthDataSource _dataSource;
@@ -10,7 +11,7 @@ class SupabaseAuthRepository implements AuthRepository {
   SupabaseAuthRepository(this._dataSource);
 
   @override
-  Future<Either<DomainException, UserModel>> login(
+  Future<Either<DomainException, UserEntity>> login(
     String email,
     String password,
   ) async {
@@ -19,7 +20,7 @@ class SupabaseAuthRepository implements AuthRepository {
 
       return authResponse.when(
         (error) => Left(error),
-        (user) => Right(UserModel(id: user.id, email: user.email!)),
+        (user) => Right(UserModel.fromSupabaseUser(user).toEntity()),
       );
     } catch (e) {
       return Left(LoginException('Login failed: ${e.toString()}'));
@@ -27,7 +28,7 @@ class SupabaseAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<Either<DomainException, UserModel>> register(
+  Future<Either<DomainException, UserEntity>> register(
     String email,
     String password,
   ) async {
@@ -46,7 +47,7 @@ class SupabaseAuthRepository implements AuthRepository {
 
       return authResponse.when(
         (error) => Left(error),
-        (user) => Right(UserModel(id: user.id, email: user.email!)),
+        (user) => Right(UserModel.fromSupabaseUser(user).toEntity()),
       );
     } catch (e) {
       return Left(RegisterException('Registration failed: ${e.toString()}'));
@@ -59,7 +60,7 @@ class SupabaseAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<Either<DomainException, UserModel>> getCurrentUser() async {
+  Future<Either<DomainException, UserEntity>> getCurrentUser() async {
     try {
       final authResponse = await _dataSource.getCurrentAuthUser();
 
@@ -68,12 +69,17 @@ class SupabaseAuthRepository implements AuthRepository {
       }
 
       return authResponse.when((error) => Left(error), (user) async {
-        return Right(UserModel(id: user.id, email: user.email!));
+        return Right(UserModel.fromSupabaseUser(user).toEntity());
       });
     } catch (e) {
       return Left(
         GetUserException('Failed to get current user: ${e.toString()}'),
       );
     }
+  }
+
+  @override
+  Future<bool> isEmailRegistered(String email) {
+    return _dataSource.isEmailRegistered(email);
   }
 }
