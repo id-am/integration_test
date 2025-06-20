@@ -1,7 +1,8 @@
 import 'package:integration_test_lab/core/utils/either.dart';
 import 'package:integration_test_lab/core/domain/exceptions/domain_exceptions.dart';
-import 'package:integration_test_lab/features/profile/domain/datasources/profile_data_source.dart';
-import 'package:integration_test_lab/features/profile/domain/models/profile_model.dart';
+import 'package:integration_test_lab/features/profile/data/datasources/profile_data_source.dart';
+import 'package:integration_test_lab/features/profile/data/models/profile_model.dart';
+import 'package:integration_test_lab/features/profile/domain/entities/profile_entity.dart';
 import 'package:integration_test_lab/features/profile/domain/repositories/profile_repository.dart';
 
 class SupabaseProfileRepository implements ProfileRepository {
@@ -16,11 +17,8 @@ class SupabaseProfileRepository implements ProfileRepository {
     String email,
   ) async {
     try {
-      return Right(
-        await _dataSource.createProfile(
-          user: ProfileModel(userId: userId, name: name, email: email),
-        ),
-      );
+      final profile = ProfileModel(userId: userId, name: name, email: email);
+      return Right(await _dataSource.createProfile(profile: profile));
     } catch (e) {
       return Left(
         CreateProfileException(
@@ -31,13 +29,13 @@ class SupabaseProfileRepository implements ProfileRepository {
   }
 
   @override
-  Future<Either<DomainException, ProfileModel>> getProfile(
+  Future<Either<DomainException, ProfileEntity>> getProfile(
     String userId,
   ) async {
     try {
       final userData = await _dataSource.getProfile(userId);
 
-      return Right(ProfileModel.fromJson(userData));
+      return Right(ProfileModel.fromJson(userData).toEntity());
     } catch (e) {
       return Left(
         GetProfileException('Failed to get user profile: ${e.toString()}'),
@@ -46,9 +44,12 @@ class SupabaseProfileRepository implements ProfileRepository {
   }
 
   @override
-  Future<Either<DomainException, bool>> updateProfile(ProfileModel user) async {
+  Future<Either<DomainException, bool>> updateProfile(
+    ProfileEntity profile,
+  ) async {
     try {
-      final result = await _dataSource.updateProfile(user: user);
+      final profileModel = ProfileModel.fromEntity(profile);
+      final result = await _dataSource.updateProfile(profile: profileModel);
       return Right(result);
     } catch (e) {
       return Left(

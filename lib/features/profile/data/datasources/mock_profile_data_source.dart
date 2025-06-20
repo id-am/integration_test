@@ -1,5 +1,5 @@
-import 'package:integration_test_lab/features/profile/domain/datasources/profile_data_source.dart';
-import 'package:integration_test_lab/features/profile/domain/models/profile_model.dart';
+import 'package:integration_test_lab/features/profile/data/datasources/profile_data_source.dart';
+import 'package:integration_test_lab/features/profile/data/models/profile_model.dart';
 
 /// Mock de ProfileDataSource que simula respuestas correctas para pruebas
 class MockProfileDataSource implements ProfileDataSource {
@@ -15,12 +15,12 @@ class MockProfileDataSource implements ProfileDataSource {
   };
 
   @override
-  Future<bool> createProfile({required ProfileModel user}) async {
+  Future<bool> createProfile({required ProfileModel profile}) async {
     // Simulamos creación exitosa añadiendo el perfil a nuestro mapa
-    _mockProfiles[user.userId] = {
-      'user_id': user.userId,
-      'name': user.name,
-      'email': user.email,
+    _mockProfiles[profile.userId] = {
+      'user_id': profile.userId,
+      'name': profile.name,
+      'email': profile.email,
       'created_at': DateTime.now().toIso8601String(),
       'updated_at': null,
     };
@@ -39,13 +39,13 @@ class MockProfileDataSource implements ProfileDataSource {
   }
 
   @override
-  Future<bool> updateProfile({required ProfileModel user}) async {
+  Future<bool> updateProfile({required ProfileModel profile}) async {
     // Verificamos si el perfil existe en nuestro mapa
-    if (_mockProfiles.containsKey(user.userId)) {
+    if (_mockProfiles.containsKey(profile.userId)) {
       // Actualizamos el perfil
-      _mockProfiles[user.userId] = {
-        ..._mockProfiles[user.userId]!,
-        ...user.toJson(),
+      _mockProfiles[profile.userId] = {
+        ..._mockProfiles[profile.userId]!,
+        ...profile.toJson(),
         'updated_at': DateTime.now().toIso8601String(),
       };
       return true;

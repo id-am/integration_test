@@ -1,6 +1,6 @@
 import 'package:integration_test_lab/core/supabase_tables.dart';
-import 'package:integration_test_lab/features/profile/domain/datasources/profile_data_source.dart';
-import 'package:integration_test_lab/features/profile/domain/models/profile_model.dart';
+import 'package:integration_test_lab/features/profile/data/datasources/profile_data_source.dart';
+import 'package:integration_test_lab/features/profile/data/models/profile_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseProfileDataSource implements ProfileDataSource {
@@ -9,12 +9,12 @@ class SupabaseProfileDataSource implements ProfileDataSource {
   SupabaseProfileDataSource(this._supabaseClient);
 
   @override
-  Future<bool> createProfile({required ProfileModel user}) async {
+  Future<bool> createProfile({required ProfileModel profile}) async {
     try {
       await _supabaseClient.from(SupabaseTables.profiles).insert({
-        'user_id': user.userId,
-        'name': user.name,
-        'email': user.email,
+        'user_id': profile.userId,
+        'name': profile.name,
+        'email': profile.email,
         'created_at': DateTime.now().toIso8601String(),
       });
       return true;
@@ -40,17 +40,17 @@ class SupabaseProfileDataSource implements ProfileDataSource {
   }
 
   @override
-  Future<bool> updateProfile({required ProfileModel user}) async {
+  Future<bool> updateProfile({required ProfileModel profile}) async {
     try {
       final updatedData = {
-        ...user.toJson(),
+        ...profile.toJson(),
         'updated_at': DateTime.now().toIso8601String(),
       };
 
       await _supabaseClient
           .from(SupabaseTables.profiles)
           .update(updatedData)
-          .eq('user_id', user.userId);
+          .eq('user_id', profile.userId);
       return true;
     } catch (e) {
       rethrow;
