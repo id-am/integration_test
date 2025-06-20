@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:integration_test_lab/core/consts/app_widget_keys.dart';
-import 'package:integration_test_lab/features/profile/domain/models/profile_model.dart';
+import 'package:integration_test_lab/features/profile/domain/entities/profile_entity.dart';
 import 'package:integration_test_lab/features/auth/presentation/providers/auth_provider.dart';
 import 'package:integration_test_lab/features/profile/presentation/providers/profile_provider.dart';
 
@@ -40,7 +40,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   }
 
   // Update text controllers when profile data is loaded
-  void _updateControllers(ProfileModel profile) {
+  void _updateControllers(ProfileEntity profile) {
     _nameController.text = profile.name;
     _emailController.text = profile.email;
   }
@@ -51,7 +51,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       final authState = ref.read(authProvider);
 
       if (profileState.profile != null && authState.user != null) {
-        final updatedProfile = ProfileModel(
+        final updatedProfile = ProfileEntity(
           userId: authState.user!.id,
           name: _nameController.text,
           email: _emailController.text,

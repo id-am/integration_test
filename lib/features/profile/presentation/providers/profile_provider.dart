@@ -2,9 +2,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:integration_test_lab/core/current_environment.dart';
 import 'package:integration_test_lab/features/profile/data/datasources/supabase_profile_data_source.dart';
 import 'package:integration_test_lab/features/profile/data/datasources/mock_profile_data_source.dart';
-import 'package:integration_test_lab/features/profile/data/supabase_profile_repository.dart';
-import 'package:integration_test_lab/features/profile/domain/datasources/profile_data_source.dart';
-import 'package:integration_test_lab/features/profile/domain/models/profile_model.dart';
+import 'package:integration_test_lab/features/profile/data/repositories/supabase_profile_repository.dart';
+import 'package:integration_test_lab/features/profile/data/datasources/profile_data_source.dart';
+import 'package:integration_test_lab/features/profile/domain/entities/profile_entity.dart';
 import 'package:integration_test_lab/features/profile/domain/repositories/profile_repository.dart';
 import 'package:integration_test_lab/features/profile/domain/usecases/create_profile_usecase.dart';
 import 'package:integration_test_lab/features/profile/domain/usecases/delete_profile_usecase.dart';
@@ -51,14 +51,14 @@ final createProfileUseCaseProvider = Provider<CreateProfileUseCase>((ref) {
 
 // Profile state
 class ProfileState {
-  final ProfileModel? profile;
+  final ProfileEntity? profile;
   final bool isLoading;
   final String? error;
 
   ProfileState({this.profile, this.isLoading = false, this.error});
 
   ProfileState copyWith({
-    ProfileModel? profile,
+    ProfileEntity? profile,
     bool? isLoading,
     String? error,
   }) {
@@ -98,7 +98,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     }
   }
 
-  Future<void> updateProfile(ProfileModel updatedProfile) async {
+  Future<void> updateProfile(ProfileEntity updatedProfile) async {
     state = state.copyWith(isLoading: true, error: null);
     try {
       await _updateProfileUseCase(updatedProfile);
@@ -118,7 +118,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     }
   }
 
-  Future<void> createProfile(ProfileModel newProfile) async {
+  Future<void> createProfile(ProfileEntity newProfile) async {
     state = state.copyWith(isLoading: true, error: null);
     try {
       await _createProfileUseCase(
