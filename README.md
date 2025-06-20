@@ -68,28 +68,46 @@ El proyecto contiene los siguientes componentes principales:
 
 ```
 integration_test_lab/
-├── lib/                                    # Código fuente principal
-│   ├── main.dart                           # Punto de entrada de la aplicación
-│   ├── core/                               # Funcionalidades centrales
-│   │   └── consts/
-│   │       └── app_widget_keys.dart        # Claves para identificar widgets en pruebas
-│   └── features/                           # Funcionalidades de la aplicación
-│       ├── auth/                           # Autenticación
-│       └── home/                           # Pantalla principal
+├── lib/
+│   ├── core/                         # Componentes fundamentales y compartidos
+│   │   ├── domain/                   # Excepciones y entidades de dominio comunes
+│   │   ├── utils/                    # Utilidades generales, como Either
+│   │   └── ...
+│   │
+│   └── features/                     # Funcionalidades organizadas por módulos
+│       ├── auth/                     # Módulo de autenticación
+│       │   ├── data/                 # Capa de datos
+│       │   │   ├── datasources/      # Fuentes de datos (API, local)
+│       │   │   ├── models/           # Modelos con serialización
+│       │   │   └── repositories/     # Implementaciones de repositorios
+│       │   │
+│       │   └── domain/               # Capa de dominio
+│       │       ├── entities/         # Entidades puras de dominio
+│       │       └── repositories/     # Interfaces de repositorios
+│       │
+│       └── profile/                  # Módulo de perfil
+│           ├── data/                 # Capa de datos
+│           │   ├── datasources/      # Fuentes de datos (API, local)
+│           │   ├── models/           # Modelos con serialización
+│           │   └── repositories/     # Implementaciones de repositorios
+│           │
+│           └── domain/               # Capa de dominio
+│               ├── entities/         # Entidades puras de dominio
+│               └── repositories/     # Interfaces de repositorios
+│ 
+├── integration_test/                 # Pruebas de integración
+│   ├── integration_test.dart         # Configuración principal de pruebas de integración
+│   ├── auth_flow_test.dart           # Pruebas del flujo de autenticación
+│   ├── register_flow_test.dart       # Pruebas del flujo de registro
+│   ├── test_setup.dart               # Configuración común para pruebas
+│   ├── robots/                       # Robots para interacción con UI
+│   │   ├── base_robot.dart           # Robot base
+│   │   ├── login_robot.dart          # Robot para pantalla de login
+│   │   └── register_robot.dart       # Robot para pantalla de registro
+│   └── test_helpers/                 # Funciones auxiliares para pruebas
 │
-├── integration_test/                       # Pruebas de integración
-│   ├── integration_test.dart               # Configuración principal de pruebas de integración
-│   ├── auth_flow_test.dart                 # Pruebas del flujo de autenticación
-│   ├── register_flow_test.dart             # Pruebas del flujo de registro
-│   ├── test_setup.dart                     # Configuración común para pruebas
-│   ├── robots/                             # Robots para interacción con UI
-│   │   ├── base_robot.dart                 # Robot base
-│   │   ├── login_robot.dart                # Robot para pantalla de login
-│   │   └── register_robot.dart             # Robot para pantalla de registro
-│   └── test_helpers/                       # Funciones auxiliares para pruebas
-│
-├── pubspec.yaml                            # Dependencias y configuración del proyecto
-└── README.md                               # Documentación del proyecto
+├── pubspec.yaml                      # Dependencias y configuración del proyecto
+└── README.md                         # Documentación del proyecto
 ```
 
 ### Patrones de Organización
