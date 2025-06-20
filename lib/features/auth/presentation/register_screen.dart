@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:integration_test_lab/core/consts/app_widget_keys.dart';
 import 'package:integration_test_lab/core/router.dart';
 import 'package:integration_test_lab/features/auth/presentation/providers/auth_provider.dart';
-import 'package:integration_test_lab/features/profile/domain/models/profile_model.dart';
+import 'package:integration_test_lab/features/profile/domain/entities/profile_entity.dart';
 import 'package:integration_test_lab/features/profile/presentation/providers/profile_provider.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
@@ -78,7 +78,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           ),
         );
 
-        final profile = ProfileModel(
+        final profile = ProfileEntity(
           userId: current.user!.id,
           email: _emailController.text,
           name: _nameController.text,

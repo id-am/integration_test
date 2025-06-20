@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:integration_test_lab/core/current_environment.dart';
-import 'package:integration_test_lab/features/auth/domain/datasources/auth_data_source.dart';
+import 'package:integration_test_lab/features/auth/data/datasources/auth_data_source.dart';
 import 'package:integration_test_lab/features/auth/data/datasources/supabase_auth_data_source.dart';
 import 'package:integration_test_lab/features/auth/data/datasources/mock_auth_data_source.dart';
-import 'package:integration_test_lab/features/auth/data/supabase_auth_repository.dart';
+import 'package:integration_test_lab/features/auth/data/repositories/supabase_auth_repository.dart';
 import 'package:integration_test_lab/features/auth/domain/repositories/auth_repository.dart';
-import 'package:integration_test_lab/features/auth/domain/models/user_model.dart';
+import 'package:integration_test_lab/features/auth/domain/entities/user_entity.dart';
 import 'package:integration_test_lab/features/auth/domain/usecases/usecases.dart';
 import 'package:integration_test_lab/core/domain/exceptions/domain_exceptions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -52,7 +52,7 @@ final getCurrentUserUseCaseProvider = Provider<GetCurrentUserUseCase>((ref) {
 
 // Auth state notifier
 class AuthState {
-  final UserModel? user;
+  final UserEntity? user;
   final bool isLoading;
   final String? error;
   final bool redirectToLogin;
@@ -67,7 +67,7 @@ class AuthState {
   });
 
   AuthState copyWith({
-    UserModel? user,
+    UserEntity? user,
     bool? isLoading,
     String? error,
     bool? redirectToLogin,
@@ -152,7 +152,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
         }
       },
       (user) {
-        final newUser = UserModel(id: user.id, email: user.email, name: name);
+        final newUser = UserEntity(id: user.id, email: user.email, name: name);
         state = state.copyWith(
           user: newUser,
           isLoading: false,
